@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 def name():
-    return "OSM Import UI"
+    return "OSM-Import-UI"
 
 def description():
     return "GUI for OSM tools (osmosis/osm2pgsql)"

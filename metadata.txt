@@ -1,5 +1,5 @@
 [general]
-name=OSM Import UI
+name=OSM-Import-UI
 qgisMinimumVersion=1.8
 description=GUI for OSM tools (osmosis/osm2pgsql)
 version=0.1.8
