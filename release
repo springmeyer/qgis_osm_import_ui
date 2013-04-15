@@ -1,0 +1,5 @@
+PACKAGE="qgis-osm-import-ui"
+rm *pyc
+cd ../
+rm ${PACKAGE}.zip
+zip -9vr ${PACKAGE}.zip ${PACKAGE}/*

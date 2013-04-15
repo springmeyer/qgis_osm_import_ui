@@ -1,0 +1,12 @@
+.DS_Store
+*.pyc
+resources_rc.py
+command_dock_ui.py
+dialog_settings_ui.py
+command_dock_ui2.py
+osmosis
+lib
+bin
+osmosis-latest.zip
+config
+script

@@ -1,0 +1,5 @@
+# osmosis woes with class path
+http://forum.openstreetmap.org/viewtopic.php?id=4039
+
+# QProcess quoting on windows
+http://www.qtcentre.org/threads/27698-PyQT4-application-won-t-start-because-of-spaces-in-path-Qprocess?p=131607

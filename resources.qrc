@@ -1,0 +1,6 @@
+<RCC>
+  <qresource>
+    <file>icons/osmosis.png</file>
+    <file>icons/osm2pgsql.png</file>
+  </qresource>
+</RCC>
