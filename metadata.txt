@@ -2,13 +2,13 @@
 name=OSM Import UI
 qgisMinimumVersion=1.8
 description=GUI for OSM tools (osmosis/osm2pgsql)
-version=0.1.7
+version=0.1.8
 author=Dane Springmeyer
 email=dane@dbsgeo.com
 ; optional below
 experimental=False
 changelog=TODO
 tags=osm,osm2pgsql,osmosis,import
-homepage=http://bitbucket.org/springmeyer/hot_tools/
-tracker=http://bitbucket.org/springmeyer/hot_tools/
-repository=http://bitbucket.org/springmeyer/hot_tools/
+homepage=https://github.com/springmeyer/qgis-osm-import-ui
+tracker=https://github.com/springmeyer/qgis-osm-import-ui
+repository=https://github.com/springmeyer/qgis-osm-import-ui
