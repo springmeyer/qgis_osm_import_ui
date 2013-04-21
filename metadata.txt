@@ -2,7 +2,7 @@
 name=OSM-Import-UI
 qgisMinimumVersion=1.8
 description=GUI for OSM tools (osmosis/osm2pgsql)
-version=0.1.8
+version=0.1.9
 author=Dane Springmeyer
 email=dane@dbsgeo.com
 ; optional below

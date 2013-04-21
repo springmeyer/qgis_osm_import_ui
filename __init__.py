@@ -7,7 +7,7 @@ def description():
     return "GUI for OSM tools (osmosis/osm2pgsql)"
 
 def version():
-    return "Version 0.1.8"
+    return "Version 0.1.9"
 
 def qgisMinimumVersion():
     return "1.8"
