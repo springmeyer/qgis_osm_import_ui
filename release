@@ -1,4 +1,4 @@
-PACKAGE="qgis-osm-import-ui"
+PACKAGE=$(basename `pwd`)
 rm -f *pyc
 cd ../
 rm ${PACKAGE}.zip

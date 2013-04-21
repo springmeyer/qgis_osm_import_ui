@@ -1,4 +1,4 @@
-INST_DIR = ~/.qgis/python/plugins/qgis-osm-import-ui
+INST_DIR = ~/.qgis/python/plugins/qgis_osm_import_ui
 
 PYRCC = pyrcc4
 PYUIC = pyuic4
