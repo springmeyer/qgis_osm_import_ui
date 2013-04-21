@@ -89,19 +89,7 @@ class Commands(QObject):
         self.dock_window2 = None
         self.bbox_area = None
         self.canvas = self.iface.mapCanvas()
-
-    def create_action_group(self,name,actions):
-        setattr(self,name,QMenu( QCoreApplication.translate( NAME, "&%s" % name ) ))
-        action_objs = []
-        for action_name in actions:
-            action_obj = QAction(QCoreApplication.translate( NAME, action_name.replace('_',' ')), self.iface.mainWindow())
-            action_objs.append(action_obj)
-            setattr(self,'%s_action' % action_name, action_obj)
-            #self.action.setWhatsThis("Clip osm file")
-            QObject.connect(getattr(self,'%s_action' % action_name), SIGNAL("triggered()"), getattr(self,action_name))
-        menu_item = getattr(self,name)
-        menu_item.addActions( action_objs )
-        return menu_item
+        self.actions = []
 
     def create_action(self,meta):
         action = QAction(QCoreApplication.translate( NAME, "&%s" % meta['title'] ), self.iface.mainWindow())
@@ -115,60 +103,24 @@ class Commands(QObject):
             action.setIcon(QIcon(icon))
         action_name = '%s_action' % meta['action']
         setattr(self,action_name,action)
+        setattr(action,'action_name',action_name)
         QObject.connect(getattr(self,action_name), SIGNAL("triggered()"), getattr(self,meta['action']))
         return getattr(self,action_name)
-                
-    def create_menu(self):
-        self.menu = QMenu()
-        self.menu.setTitle(QCoreApplication.translate(NAME, "&%s" % NAME))
-        self.menu.addMenu(self.create_action_group("Process",["osmosis_clip"]))
-        self.menu.addMenu(self.create_action_group("Import",["osm2pgsql"]))
-        self.menu.addSeparator()    
-        menu_bar = self.iface.mainWindow().menuBar()
-        actions = menu_bar.actions()
-        lastAction = actions[ len( actions ) - 1 ]
-        menu_bar.insertMenu( lastAction, self.menu )    
-        self.unload = self.unload_menu
 
-    def create_menu2(self,actions):
-        self.menu = QMenu()
-        self.menu.setTitle(QCoreApplication.translate(NAME, "&%s" % NAME))
+    def create_menu(self,actions):
         for action in actions:
-            self.menu.addAction(self.create_action(action))
-        #self.menu.addSeparator()    
-        menu_bar = self.iface.mainWindow().menuBar()
-        actions = menu_bar.actions()
-        lastAction = actions[ len( actions ) - 1 ]
-        menu_bar.insertMenu( lastAction, self.menu )    
-        self.unload = self.unload_menu
-         
-    def unload_menu(self):
-        pass
-        
-    def create_plugin_menu(self):
-        self.action = QAction(QString("Clip osm file (osmosis)"), self.iface.mainWindow())
-        self.action.setWhatsThis("Clip osm file")
-        QObject.connect(self.action, SIGNAL("triggered()"), self.clip)
-        self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu("&%s" % NAME, self.action)
-        
-        # osm2pgsql
-        self.action2 = QAction(QString("Import osm to postgis (osm2pgsql)"), self.iface.mainWindow())
-        self.action2.setWhatsThis("Clip osm file")
-        QObject.connect(self.action2, SIGNAL("triggered()"), self.import2postgis)
-        self.iface.addToolBarIcon(self.action2)
-        self.iface.addPluginToMenu("&%s" % NAME, self.action2)
-        self.unload = self.unload_plugin_menu
+            action_obj = self.create_action(action)
+            self.actions.append(action_obj)
+            # Add toolbar button and menu item
+            self.iface.addToolBarIcon(action_obj)
+            self.iface.addPluginToMenu("&%s" % NAME, action_obj)
 
-    def unload_plugin_menu(self):
-        self.iface.removePluginMenu("&%s" % NAME,self.action)
-        self.iface.removeToolBarIcon(self.action)
-
-        self.iface.removePluginMenu("&%s" % NAME,self.action2)
-        self.iface.removeToolBarIcon(self.action2)
+    def unload(self):
+        for action in self.actions:
+            self.iface.removePluginMenu("&%s" % NAME,action)
+            self.iface.removeToolBarIcon(action)
             
     def initGui(self):
-        #self.create_menu()
         actions = []
         actions.append({
                     'title':'Process OSM data (osmosis)',
@@ -183,12 +135,12 @@ class Commands(QObject):
                     'icon':':/icons/osm2pgsql.png',
                   })
         actions.append({
-                    'title':'Tool settings',
+                    'title':'%s settings' % NAME,
                     'action':'plugin_settings',
                     'tooltip':'',
                     'icon':'',
                   })
-        self.create_menu2(actions)
+        self.create_menu(actions)
 
     def plugin_settings(self):
         import settings
